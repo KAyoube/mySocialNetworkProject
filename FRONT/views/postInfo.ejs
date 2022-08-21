@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
+    integrity="sha512-XWTTruHZEYJsxV3W/lSXG1n3Q39YIWOstqvmFsdNEEQfHoZ6vm6E9GK2OrF6Di+Nn0WDPID9O7xB2Q=="
+    crossorigin="anonymous" />
+    <style>
+      body{
+                background-image: url(img/icon-left-font.png);
+                background-repeat: no-repeat;
+                background-size: fill;
+            }
+    </style>
+    <title>POSTINFO</title>
+</head>
+<body>
+    <h1>ICI info posts by ID en params</h1>
+
+    <% if (locals.success){ %>
+        <a href="http://localhost:5000/feed"><button>feed</button></a>
+        <br>
+        <br>
+        <br>
+        <div>
+          <p>Id post <%= locals.success.id %> </p>
+          <li> <strong>title  </strong><%= locals.success.title %></li> 
+          <li><strong>text  </strong><%= locals.success.text %> </li>  
+          <li><strong>LIKES  </strong><%= locals.success.likesCount %> </li>
+            <% if (locals.successCom) {%>  
+            <div class="commentaire">
+              <li><strong>text  </strong><%= locals.successCom.text %> </li>
+            </div> 
+            <% } %> 
+            <form action="/comment/<%= locals.success.id %>" method="post">
+              <input type="text" name="text">
+              <button type="submit">com</button>
+            </form>
+
+
+          <form action="/post/<%= locals.success.id %>" method="post">
+            <button type="submit">LIKE</button>
+        </form>
+        <form action="/post/unlike/<%= locals.success.id %>" method="post">
+            <button type="submit">UNLIKE</button>
+        </form>
+    </div>
+
+      <% } %>
+
+
+     
+
+      <% if (!locals.success){ %>
+        <div class="alert alert-danger">
+          <h2>vous n'avez pas les droit: veuillez vous connecter</h2>
+        </div>
+        <a href="http://localhost:5000/login"><button>login</button></a>
+        <% } %>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
+    integrity="sha512-XWTTruHZEYJsxV3W/lSXG1n3Q39YIWOstqvmFsdNEEQfHoZ6vm6E9GK2OrF6Di+Nn0WDPID9O7xB2Q=="
+    crossorigin="anonymous" />
+    <style>
+      .post-card{
+                border: 1px solid green;
+            }
+
+            body{
+                background-image: url(img/icon-left-font.png);
+                background-repeat: no-repeat;
+                background-size: fill;
+            }
+    </style>
+    <title>userINFO</title>
+</head>
+<body>
+
+    <h2>ICI tout les USERS</h2>
+
+    <% if (locals.success){ %>
+        <a href="http://localhost:5000/feed"><button>feed</button></a>
+        <br>
+        <br>
+        <br>
+        <% locals.success.map((user)=>{ %>
+          <div class="post-card">
+            <li><%= user.id %> </li>  
+            <li><a href="http://localhost:5000/userInfo/<%= user.id %>" > <%= user.firstname %></a></li>  
+            <li><%= user.lastname %> </li>  
+            <li><%= user.bio %> </li>  
+          </div>
+          <br>
+          <br>
+          <br>
+        <%}) %> 
+      <% } %>
+
+      
+
+
+
+     <% if (!locals.success){ %>
+        <div class="alert alert-danger">
+          <h2>vous n'avez pas les droit: veuillez vous connecter</h2>
+        </div>
+        <a href="http://localhost:5000/login"><button>login</button></a>
+        <% } %>
+
+
+</body>
+</html>

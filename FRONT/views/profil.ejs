@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
+      integrity="sha512-XWTTruHZEYJsxV3W/lSXG1n3Q39YIWOstqvmFsdNEEQfHoZ6vm6E9GK2OrF6Di+Nn0WDPID9O7xB2Q=="
+      crossorigin="anonymous"
+    />
+    <style>
+      form {
+        margin-left: 50px;
+      }
+      p{
+        margin-left: 50px;
+      }
+      .userInfo{
+        display: none;
+      }
+
+    </style>
+    <title>Mon PROFIL</title>
+  </head>
+  <body>
+    <h1>MA PAGE PROFIL</h1>
+
+    <% if (locals.success){ %>
+    <a href="http://localhost:5000/feed"><button>feed</button></a>
+
+
+    <form action="/profil/delete" method="post">
+      <input type="hidden" name="">
+      <button class="btn btn-outline-danger" type="submit">supprimer compte</button>
+    </form>
+
+    <form action="/logout/fromProfil" method="post">
+      <button class="btn btn-outline-secondary" type="submit">Logout</button>
+  </form>
+
+
+    <div class="profil">
+      <p>ID : <%=locals.success.id%></p>
+      
+      <form action="/profil" method="post">
+        <label class="form-label"><%= locals.success.firstname%></label> <i id='changeFirstname' class="fa-regular fa-pen-to-square"></i>
+        <input  id="editFirstname" class="userInfo"  type="text" placeholder="new firstname" name="firstname" />
+        <br>   
+        <br>   
+        <br>   
+        <label class="form-label"><%= locals.success.lastname%></label><i id='changeLastname' class="fa-regular fa-pen-to-square"></i>
+        <input id="editLastname" class="userInfo" type="text" placeholder="new lastname" name="lastname" /> 
+        <br>     
+        <br>     
+        <br>     
+        <br>     
+        <label class="form-label"><%= locals.success.bio%></label><i id='changeBio' class="fa-regular fa-pen-to-square"></i>
+        <input id="editBio" class="userInfo" type="text" placeholder="new bio" name="bio" />
+        <br>
+        <br>
+        <p>Email: <%= locals.success.email%></p>
+        <br>
+        <br>
+        <button class="btn btn-outline-info" type="submit">change</button>
+      </form>
+      
+        <!-- <form method="POST" action="/feed" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Delete </button>
+              </form> -->
+     
+    </div>
+    <% } %> <% if (locals.error){ %>
+    <div class="alert alert-danger">
+      <h2>vous n'avez pas les droit: veuillez vous connecter</h2>
+    </div>
+    <a href="http://localhost:5000/login"><button>login</button></a>
+    <% } %>
+  </body>
+  <script src="/js/test.js"></script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
+        integrity="sha512-XWTTruHZEYJsxV3W/lSXG1n3Q39YIWOstqvmFsdNEEQfHoZ6vm6E9GK2OrF6DSJSpIbRbi+Nn0WDPID9O7xB2Q=="
+        crossorigin="anonymous" />
+    <style>
+        .post-card {
+            border: 1px solid green;
+        }
+
+        body {
+            background-image: url(img/icon-left-font.png);
+            background-repeat: no-repeat;
+            background-size: fill;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+    </style>
+    <title>FEED</title>
+</head>
+
+<body>
+    <h1>ICI c'est le FEED</h1>
+
+
+
+    <% if(locals.success){ %>
+        <a href="http://localhost:5000/profil"><button>mon profil</button></a>
+        <br>
+        <br>
+        <br>
+
+        <form action="/logout/fromFeed" method="post">
+            <button class="btn btn-outline-secondary" type="submit">Logout</button>
+        </form>
+
+        <form action="/feed" method="post">
+            <input type="text" placeholder="TITLE" name="title">
+            <input type="text" placeholder="TEXT" name="text">
+            <button type="submit">Post</button>
+        </form>
+
+        
+        <% locals.success.sort((a,b)=>b.id-a.id).map((post)=>{ %>
+            <ul class="post-card">
+                <li><a href="/post/<%= post.id %> "><strong>Post:</strong></li></a>
+                <li> <strong>TITLE:</strong>
+                    <%= post.title %>
+                </li>
+                <li> <strong>TEXTE:</strong>
+                    <%= post.text %>
+                </li>
+                <li> <strong>LIKES:</strong>
+                    <%= post.likesCount %>
+                </li>
+            </ul>
+            <% })%>
+                <% } %>
+
+                    <% if (!locals.success){ %>
+                        <div class="alert alert-danger">
+                            <h2>vous n'avez pas les droit: veuillez vous connecter</h2>
+                        </div>
+                        <a href="http://localhost:5000/login"><button>login</button></a>
+                        <% } %>
+
+</body>
+
+</html>
